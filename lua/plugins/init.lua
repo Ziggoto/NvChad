@@ -83,6 +83,11 @@ local default_plugins = {
 
   -- git stuff
   {
+    "tpope/vim-fugitive",
+    event = "User FilePost",
+  },
+
+  {
     "lewis6991/gitsigns.nvim",
     event = "User FilePost",
     opts = function()
@@ -208,7 +213,7 @@ local default_plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope-live-grep-args.nvim" },
     cmd = "Telescope",
     init = function()
       require("core.utils").load_mappings "telescope"
@@ -220,6 +225,24 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "telescope")
       local telescope = require "telescope"
       telescope.setup(opts)
+
+      -- configure the grep-args
+      local lga_actions = require("telescope-live-grep-args.actions")
+
+      telescope.setup {
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            -- define mappings, e.g.
+            mappings = { -- extend mappings
+              i = {
+                ["<C-k>"] = lga_actions.quote_prompt(),
+                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+              },
+            },
+          }
+        }
+      }
 
       -- load extensions
       for _, ext in ipairs(opts.extensions_list) do
@@ -240,6 +263,33 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
     end,
+  },
+
+    -- Some plugins I've used on my previous vim settings
+  {
+    "tpope/vim-surround",
+    lazy = false
+  },
+
+  {
+    "wellle/targets.vim",
+    lazy = false
+  },
+
+  {
+    "windwp/nvim-ts-autotag",
+    lazy = false,
+    config = function(_, opts)
+      require('nvim-ts-autotag').setup()
+    end,
+  },
+
+  {
+    "chentoast/marks.nvim",
+    lazy = false,
+    config = function (_, opts)
+      require('marks').setup()
+    end
   },
 }
 

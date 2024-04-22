@@ -19,3 +19,37 @@ end
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
+
+-- make my migration smoother
+-- guidance: https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
+vim.keymap.set('n', ',z', ':bp<CR>')
+vim.keymap.set('n', ',x', ':bn<CR>')
+vim.keymap.set('n', ',h', ':<C-u>split<CR>')
+vim.keymap.set('n', ',v', ':<C-u>vsplit<CR>')
+vim.keymap.set('n', ',c', ':bd<CR>')
+
+vim.keymap.set('n', ',ga', ':Gwrite<CR>')
+vim.keymap.set('n', ',gb', ':Git blame<CR>')
+vim.keymap.set('n', ',gd', ':Gvdiffsplit<CR>')
+vim.keymap.set('n', '<leader>fr', ':lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>', { desc = 'Live grep with args' })
+
+vim.keymap.set('n', ']q', ':cnext<CR>')
+vim.keymap.set('n', '[q', ':cprev<CR>')
+vim.keymap.set('n', ']l', ':lnext<CR>')
+vim.keymap.set('n', '[l', ':lprev<CR>')
+
+vim.opt.relativenumber = true
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 20
+vim.opt.clipboard = ""
+
+vim.cmd('cnoreabbrev W! w!')
+vim.cmd('cnoreabbrev Q! q!')
+vim.cmd('cnoreabbrev Qall! qall!')
+vim.cmd('cnoreabbrev Wq wq')
+vim.cmd('cnoreabbrev Wa wa')
+vim.cmd('cnoreabbrev wQ wq')
+vim.cmd('cnoreabbrev WQ wq')
+vim.cmd('cnoreabbrev W w')
+vim.cmd('cnoreabbrev Q q')
+vim.cmd('cnoreabbrev Qall qall')
