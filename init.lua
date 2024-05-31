@@ -31,7 +31,6 @@ vim.keymap.set('n', ',c', ':bd<CR>')
 vim.keymap.set('n', ',ga', ':Gwrite<CR>')
 vim.keymap.set('n', ',gb', ':Git blame<CR>')
 vim.keymap.set('n', ',gd', ':Gvdiffsplit<CR>')
-vim.keymap.set('n', '<leader>fr', ':lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>', { desc = 'Live grep with args' })
 
 vim.keymap.set('n', ']q', ':cnext<CR>')
 vim.keymap.set('n', '[q', ':cprev<CR>')

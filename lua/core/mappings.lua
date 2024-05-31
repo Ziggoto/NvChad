@@ -288,7 +288,11 @@ M.telescope = {
     -- theme switcher
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
-    ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+    ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "Telescope bookmarks" },
+
+    -- my owns
+    ["<leader>le"] = { "<cmd> Telescope diagnostics <CR>", "Show diagnostics" },
+    ["<leader>fr"] = { "<cmd> lua require('telescope').extensions.live_grep_args.live_grep_args() <CR>", "Live grep with args" }
   },
 }
 

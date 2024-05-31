@@ -47,5 +47,5 @@ lspconfig.eslint.setup {
       command = "EslintFixAll",
     })
   end,
-  capabilities = capabilities
+  capabilities = capabilities,
 }
