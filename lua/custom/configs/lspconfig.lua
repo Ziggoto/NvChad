@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "clangd" }
+local servers = { "html", "cssls", "clangd", "pyright", "prismals" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -15,6 +15,11 @@ end
 
 -- 
 -- lspconfig.pyright.setup { blabla}
+
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 
 lspconfig.kotlin_language_server.setup{
   on_attach = on_attach,
@@ -49,3 +54,9 @@ lspconfig.eslint.setup {
   end,
   capabilities = capabilities,
 }
+
+lspconfig.astro.setup({
+ capabilities = capabilities,
+ on_attach = on_attach,
+ filetypes = { "astro" },
+})

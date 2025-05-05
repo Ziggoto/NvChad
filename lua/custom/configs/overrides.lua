@@ -12,6 +12,11 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "python",
+    "astro",
+    "prisma",
+    "vimdoc",
+    "query"
   },
   indent = {
     enable = true,
@@ -42,6 +47,12 @@ M.mason = {
     -- kotlin
     "kotlin-language-server",
     "ktlint",
+
+    -- my things
+    "astro-language-server",
+    "rust-analyzer",
+    "prisma-language-server",
+    "tailwindcss-language-server"
   },
 }
 
