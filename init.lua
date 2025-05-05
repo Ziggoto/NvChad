@@ -52,3 +52,33 @@ vim.cmd('cnoreabbrev WQ wq')
 vim.cmd('cnoreabbrev W w')
 vim.cmd('cnoreabbrev Q q')
 vim.cmd('cnoreabbrev Qall qall')
+
+vim.keymap.set('n', '<leader>tsa', ':TSToolsAddMissingImports<CR>', { desc = 'Add all missing TS imports' })
+vim.keymap.set('n', '<leader>tso', ':TSToolsOrganizeImports<CR>', { desc = 'Sort and remove unused TS imports' })
+vim.keymap.set('n', '<leader>tsf', ':TSToolsFixAll<CR>', { desc = 'Fix all TS related issues possible'})
+vim.keymap.set('n', '<leader>tsr', ':TSToolsRemoveUnusedImports<CR>', { desc = 'Remove unused TS imports'})
+vim.keymap.set('n', '<leader>tss', ':TSToolsSortImports<CR>', { desc = 'Sort TS imports'})
+vim.keymap.set('n', '<leader>tsu', ':TSToolsRemoveUnused<CR>', { desc = 'Remove unused TS code'})
+
+local function hide_diagnostics()
+    vim.diagnostic.config({  -- https://neovim.io/doc/user/diagnostic.html
+        virtual_text = false,
+        signs = false,
+        underline = false,
+    })
+end
+
+local function show_diagnostics()
+    vim.diagnostic.config({
+        virtual_text = true,
+        signs = true,
+        underline = true,
+    })
+end
+
+vim.keymap.set("n", ",dh", hide_diagnostics, { desc = 'Hide diagnostics' })
+vim.keymap.set("n", ",ds", show_diagnostics, { desc = 'Show diagnostics' })
+
+vim.keymap.set("n", "[c", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true, desc = 'Go to context' })
