@@ -76,6 +76,18 @@ local function show_diagnostics()
     })
 end
 
+-- Configure diagnostic signs properly to avoid deprecation warnings
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅚 ",
+      [vim.diagnostic.severity.WARN] = "󰀪 ",
+      [vim.diagnostic.severity.INFO] = "󰋽 ",
+      [vim.diagnostic.severity.HINT] = "󰌶 ",
+    }
+  }
+})
+
 vim.keymap.set("n", ",dh", hide_diagnostics, { desc = 'Hide diagnostics' })
 vim.keymap.set("n", ",ds", show_diagnostics, { desc = 'Show diagnostics' })
 

@@ -1,27 +1,28 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
-local lspconfig = require "lspconfig"
-
 -- if you just want default config for the servers then put them in a table
 local servers = { "html", "cssls", "clangd", "pyright", "prismals", "bashls" }
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config[lsp] = {
+    cmd = { lsp },
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
 
 -- 
--- lspconfig.pyright.setup { blabla}
+-- vim.lsp.config.pyright = { blabla}
 
-lspconfig.rust_analyzer.setup {
+vim.lsp.config.rust_analyzer = {
+  cmd = { "rust-analyzer" },
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
-lspconfig.kotlin_language_server.setup{
+vim.lsp.config.kotlin_language_server = {
+  cmd = { "kotlin-language-server" },
   on_attach = on_attach,
   capabilities = capabilities,
 }
@@ -74,7 +75,8 @@ require("typescript-tools").setup {
 }
 
 
-lspconfig.eslint.setup {
+vim.lsp.config.eslint = {
+  cmd = { "vscode-eslint-language-server", "--stdio" },
   -- on_attach = function(client, bufnr)
   --   vim.api.nvim_create_autocmd("BufWritePre", {
   --     buffer = bufnr,
@@ -85,8 +87,9 @@ lspconfig.eslint.setup {
   capabilities = capabilities,
 }
 
-lspconfig.astro.setup({
- capabilities = capabilities,
- on_attach = on_attach,
- filetypes = { "astro" },
-})
+vim.lsp.config.astro = {
+  cmd = { "astro-ls", "--stdio" },
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "astro" },
+}
