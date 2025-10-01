@@ -19,10 +19,8 @@ M.treesitter = {
     "query"
   },
   indent = {
-    enable = true,
-    -- disable = {
-    --   "python"
-    -- },
+    enable = false,
+    disable = { "javascriptreact", "typescriptreact" },
   },
 }
 

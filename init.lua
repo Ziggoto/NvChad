@@ -91,6 +91,23 @@ vim.diagnostic.config({
 vim.keymap.set("n", ",dh", hide_diagnostics, { desc = 'Hide diagnostics' })
 vim.keymap.set("n", ",ds", show_diagnostics, { desc = 'Show diagnostics' })
 
+vim.diagnostic.config({
+  -- put “[eslint] …” etc. in virtual text, but only
+  -- when there is more than one producer
+  virtual_text = { source = "if_many" },
+})
+
 vim.keymap.set("n", "[c", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true, desc = 'Go to context' })
+
+vim.api.nvim_create_user_command("CopyPath", function()
+  -- Get the absolute path of the current buffer
+  local path = vim.fn.expand("%:p")
+
+  -- Put it into the system clipboard
+  vim.fn.setreg("+", path)
+
+  -- Optional: show a message
+  vim.notify("Copied path: " .. path, vim.log.levels.INFO)
+end, {})

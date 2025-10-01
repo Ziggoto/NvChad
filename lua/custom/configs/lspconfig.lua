@@ -70,7 +70,10 @@ require("typescript-tools").setup {
     jsx_close_tag = {
         enable = false,
         filetypes = { "javascriptreact", "typescriptreact" },
-    }
+    },
+    rulesCustomizations = {
+      { rule = "curly", severity = "off" },          -- single rule
+    },
   },
 }
 

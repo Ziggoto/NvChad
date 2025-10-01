@@ -417,10 +417,10 @@ local default_plugins = {
   --   },
   -- }
 
-  {
-  'Exafunction/windsurf.vim',
-  event = 'BufEnter'
-  }
+  -- {
+  -- 'Exafunction/windsurf.vim',
+  -- event = 'BufEnter'
+  -- }
 }
 
 local config = require("core.utils").load_config()
