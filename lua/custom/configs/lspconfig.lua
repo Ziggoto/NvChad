@@ -44,7 +44,9 @@ require("typescript-tools").setup {
     tsserver_path = nil,
     -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
     -- (see 💅 `styled-components` support section)
-    tsserver_plugins = {},
+    tsserver_plugins = {
+      "@astrojs/ts-plugin",
+    },
     -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
     -- memory limit in megabytes or "auto"(basically no limit)
     tsserver_max_memory = "auto",
@@ -90,9 +92,36 @@ vim.lsp.config.eslint = {
   capabilities = capabilities,
 }
 
+local util = require('lspconfig.util')
+
+-- Auto-enable LSPs when opening files (required for Neovim 0.11+)
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local servers_to_enable = {}
+    for name, _ in pairs(vim.lsp.config._configs or {}) do
+      local filetypes = vim.lsp.config[name].filetypes
+      if filetypes and vim.tbl_contains(filetypes, vim.bo[args.buf].filetype) then
+        table.insert(servers_to_enable, name)
+      end
+    end
+    if #servers_to_enable > 0 then
+      vim.lsp.enable(servers_to_enable)
+    end
+  end,
+})
+
 vim.lsp.config.astro = {
   cmd = { "astro-ls", "--stdio" },
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = { "astro" },
+  root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+  init_options = {
+    typescript = {},
+  },
+  before_init = function(_, config)
+    if config.init_options and config.init_options.typescript and not config.init_options.typescript.tsdk then
+      config.init_options.typescript.tsdk = util.get_typescript_server_path(config.root_dir)
+    end
+  end,
 }
