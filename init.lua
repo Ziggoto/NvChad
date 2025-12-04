@@ -111,3 +111,7 @@ vim.api.nvim_create_user_command("CopyPath", function()
   -- Optional: show a message
   vim.notify("Copied path: " .. path, vim.log.levels.INFO)
 end, {})
+
+-- Ensure mouse is enabled (needed for Neovim 0.11+)
+vim.opt.mouse = "a"
+vim.opt.mousemodel = "extend"
